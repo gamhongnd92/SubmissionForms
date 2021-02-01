@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FormController {
@@ -29,18 +30,15 @@ public class FormController {
 	}
 	
 	
-	/*
-	@PostMapping("/details")
-	public String viewDetails(@RequestParam("cid") String cid, 
-							@RequestParam("cname") String cname,
-							@RequestParam("cemail") String cemail,
-							ModelMap modelMap) 
+	
+	@PostMapping("/getDetails")
+	public ModelAndView getDetails(@RequestParam int cid) 
 	{
-		modelMap.put("cid", cid);
-		modelMap.put("cname", cname);
-		modelMap.put("cemail", cemail);
-		return "viewCustomers";
+		ModelAndView mv = new ModelAndView("Retrieve");
+		Customers customers = repo.findById(cid).orElse(null);
+		mv.addObject(customers);
+		return mv;
 	}
-	*/
+	
 
 }
